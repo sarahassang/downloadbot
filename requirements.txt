@@ -1,0 +1,8 @@
+telebot
+requests
+pytelegrambotapi
+python-dotenv
+user-agent
+youtube-search
+wget
+yt_dlp
