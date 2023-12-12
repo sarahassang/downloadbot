@@ -1,7 +1,7 @@
 {
   "name": "DOWNLOADER BOT",
   "description": "A telegram bot made with python, to play media download all !",
-  //"logo": "https://telegra.ph/file/4ae7f1f21a85c33b50d58.jpg",
+  "logo": "https://telegra.ph/file/4ae7f1f21a85c33b50d58.jpg",
     "keywords": [
     "telegram",
     "Bot",
@@ -9,7 +9,7 @@
   ],
   "repository": "https://github.com/Rip69x/downloadbot",
   "website": "https://github.com/Rip69x",
-  //"success_url": "https://t.me/SOURCE_FRANK",
+  "success_url": "https://t.me/SOURCE_FRANK",
   "env": {
     "BOT_TOKEN": {
       "description": "Your bot token",
