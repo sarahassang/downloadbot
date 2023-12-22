@@ -62,7 +62,7 @@ in_msg = """
 ch_msg = """
 🚧┇عذراً، عليك الأشتراك في قنوات البوت أولاً،
 🚧┇القناة الأولى: @iBaghdady،
-🚧┇القناة الثانية: @JJGPP.
+🚧┇القناة الثانية: @jjgpp.
 """
 name_ch1 = "أنا بغدادي🌿"
 name_ch2 = "سـِلاح"
@@ -136,16 +136,16 @@ def Welcome(message):
 	else:
 		bot.reply_to(message,"""
 مرحبا بك سيدي في بوتك اختر ادناه...""",reply_markup=btns)
-		bot.reply_to(message,f'''-  [{name}](tg://settings)
-	-  مرحباً  بك في بوت التحميل  👋🦇❤️‍🔥
+		bot.reply_to(message,f'''- فقط [{name}](tg://settings)
+ مرحباً  بك في بوت التحميل  👋🦇❤️‍🔥
 يمكنك من خلالي تحميل الوسائط من اغلب مواقع التواصل الاجتماعي.
 المواقع المدعومة ✨:
-(يوتيوب،انستغرام،تيك توك،ثريدز،بنترست،سناب جات،تويتر،سبوتيفاي)
-
+(يوتيوب، انستغرام،تيك توك، بنترست،ثريدز،تويتر،سناب جات،سبوتيفاي)
 يمكنك التحميل من اليوتيوب من خلال البوت التالي 
 @Youtube69bbot
-
-.''',parse_mode="markdown",reply_markup=km([[btn("كيفية التحميل؟",callback_data="help")]]))
+	
+	المالك @Rozs23bot
+	.''',parse_mode="markdown",reply_markup=km([[btn("كيفية التحميل؟",callback_data="help")]]))
 
 @bot.message_handler(regexp="instagram.com")
 def instadown(message):
@@ -658,16 +658,16 @@ def snapchatdefstory(message):
 		title = info["title"]
 		bot.edit_message_text("جاري الرفع...",message.chat.id,m.message_id)
 		media = []
-		for i in link:
+		for i in url:
 			if len(media) >=10:
 				bot.send_chat_action(message.chat.id,action='upload_video')
 				bot.send_media_group(message.chat.id,media)
 				media.clear()
 				continue
 			if i["snapMediaType"] == 1:
-				media.append(telebot.types.InputMediaVideo(i))
+				media.append(telebot.types.InputMediaVideo(i["snapUrls"]["mediaUrl"]))
 			else:
-				media.append(telebot.types.InputMediaPhoto(i))
+				media.append(telebot.types.InputMediaPhoto(i["snapUrls"]["mediaUrl"]))
 		if len(media) >= 1:
 			bot.send_chat_action(message.chat.id,action='upload_video')
 			bot.send_media_group(message.chat.id,media)
@@ -684,7 +684,6 @@ def snapchatdefstory(message):
 رسالة الخطأ:
 {error}
 """)
-
 @bot.message_handler(regexp="^(https|http)://(threads.net|www.threads.net)")
 def threds(message):
 	id = message.from_user.id
