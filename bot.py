@@ -62,7 +62,7 @@ in_msg = """
 ch_msg = """
 🚧┇عذراً، عليك الأشتراك في قنوات البوت أولاً،
 🚧┇القناة الأولى: @iBaghdady،
-🚧┇القناة الثانية: @JJGPP.
+🚧┇القناة الثانية: @jjgpp.
 """
 name_ch1 = "أنا بغدادي🌿"
 name_ch2 = "سـِلاح"
@@ -127,7 +127,6 @@ def Welcome(message):
  مرحباً  بك في بوت التحميل  👋🦇❤️‍🔥
 يمكنك من خلالي تحميل الوسائط من اغلب مواقع التواصل الاجتماعي.
 المواقع المدعومة ✨:
-
 (يوتيوب، انستغرام،تيك توك، بنترست،ثريدز،تويتر،سناب جات،سبوتيفاي)
 يمكنك التحميل من اليوتيوب من خلال البوت التالي 
 @Youtube69bbot
@@ -137,17 +136,15 @@ def Welcome(message):
 	else:
 		bot.reply_to(message,"""
 مرحبا بك سيدي في بوتك اختر ادناه...""",reply_markup=btns)
-		bot.reply_to(message,f'''- فقط [{name}](tg://settings)
- مرحباً  بك في بوت التحميل  👋🦇❤️‍🔥
+		bot.reply_to(message,f'''- - [{name}](tg://settings)
+مرحباً  بك في بوت التحميل  👋🦇❤️‍🔥
 يمكنك من خلالي تحميل الوسائط من اغلب مواقع التواصل الاجتماعي.
 المواقع المدعومة ✨:
-
 (يوتيوب، انستغرام،تيك توك، بنترست،ثريدز،تويتر،سناب جات،سبوتيفاي)
 يمكنك التحميل من اليوتيوب من خلال البوت التالي 
 @Youtube69bbot
 	
-	المالك @Rozs23bot
-.''',parse_mode="markdown",reply_markup=km([[btn("كيفية التحميل؟",callback_data="help")]]))
+المالك @Rozs23bot.''',parse_mode="markdown",reply_markup=km([[btn("كيفية التحميل؟",callback_data="help")]]))
 
 @bot.message_handler(regexp="instagram.com")
 def instadown(message):
@@ -678,9 +675,30 @@ def snapchatdefstory(message):
 		bot.delete_message(message.chat.id,m.message_id)
 		#os.remove(f"video{message.chat.id}.mp4")
 	except Exception as error:
-		print(error)
-		bot.edit_message_text("حصل خطأ.",message.chat.id,m.message_id)
-		bot.send_message(dev,f"""
+		if "Wrong file identifier/HTTP URL specified" in str(error):
+			try:
+				url = info["link"]
+				title = info["title"]
+				for i in url:
+					if i["snapMediaType"] == 1:
+						bot.send_video(message.chat.id,i["snapUrls"]["mediaUrl"])
+					else:
+						bot.send_video(message.chat.id,i["snapUrls"]["mediaUrl"])
+				bot.reply_to(message,f'تم تحميل الستوريات.\n{title}\n@ibaghdady')
+				bot.delete_message(message.chat.id,m.message_id)
+			except Exception as error:
+				print(error)
+				bot.edit_message_text("حصل خطأ.",message.chat.id,m.message_id)
+				bot.send_message(dev,f"""
+الرابط: {msg}
+
+رسالة الخطأ:
+{error}
+""")
+		else:
+			print(error)
+			bot.edit_message_text("حصل خطأ.",message.chat.id,m.message_id)
+			bot.send_message(dev,f"""
 الرابط: {msg}
 
 رسالة الخطأ:
