@@ -123,24 +123,29 @@ def Welcome(message):
 			bot.send_message(dev,in_msg.format(message.from_user.first_name,message.from_user.id,message.from_user.username,number))
 		else:
 			pass
-		bot.reply_to(message,f''' [{name}](tg://settings)
+		bot.reply_to(message,f'''- [{name}](tg://settings)
  مرحباً  بك في بوت التحميل  👋🦇❤️‍🔥
 يمكنك من خلالي تحميل الوسائط من اغلب مواقع التواصل الاجتماعي.
 المواقع المدعومة ✨:
-(يوتيوب، انستغرام،فيسبوك،تيك توك، بنترست،تويتر،سبوتيفاي)
-
-
+(يوتيوب، انستغرام،تيك توك، بنترست،ثريدز،تويتر،سناب جات،سبوتيفاي)
+يمكنك التحميل من اليوتيوب من خلال البوت التالي 
+@Youtube69bbot
+	
 	المالك @Rozs23bot
 	.''',parse_mode="markdown",reply_markup=km([[btn("كيفية التحميل؟",callback_data="help")]]))
 	else:
 		bot.reply_to(message,"""
 مرحبا بك سيدي في بوتك اختر ادناه...""",reply_markup=btns)
-		bot.reply_to(message,f'''- - [{name}](tg://settings)
+		bot.reply_to(message,f'''-  [{name}](tg://settings)
 	-  مرحباً  بك في بوت التحميل  👋🦇❤️‍🔥
 يمكنك من خلالي تحميل الوسائط من اغلب مواقع التواصل الاجتماعي.
 المواقع المدعومة ✨:
-(يوتيوب، انستغرام،تيك توك، بنترست،تويتر،سبوتيفاي)
- فقط.''',parse_mode="markdown",reply_markup=km([[btn("كيفية التحميل؟",callback_data="help")]]))
+(يوتيوب،انستغرام،تيك توك،ثريدز،بنترست،سناب جات،تويتر،سبوتيفاي)
+
+يمكنك التحميل من اليوتيوب من خلال البوت التالي 
+@Youtube69bbot
+
+.''',parse_mode="markdown",reply_markup=km([[btn("كيفية التحميل؟",callback_data="help")]]))
 
 @bot.message_handler(regexp="instagram.com")
 def instadown(message):
@@ -604,7 +609,7 @@ def snapchatdef(message):
 			)
 	m = bot.reply_to(message,"جاري التحميل.")
 	msg = message.text
-	bot.edit_message_text("جاري التحميل..",message.chat.id,m.message_id)
+	#bot.edit_message_text("جاري التحميل..",message.chat.id,m.message_id)
 	try:
 		info = requests.get(f"https://apimedia.hussienalaraqe8.repl.co/snapchat?url={msg}").json()
 		print(info)
@@ -613,6 +618,61 @@ def snapchatdef(message):
 		bot.edit_message_text("جاري التحميل...",message.chat.id,m.message_id)
 		bot.send_chat_action(message.chat.id,action='upload_video')
 		bot.send_video(message.chat.id,url,caption=f'{title}\n@ibaghdady')
+		bot.delete_message(message.chat.id,m.message_id)
+		#os.remove(f"video{message.chat.id}.mp4")
+	except Exception as error:
+		print(error)
+		bot.edit_message_text("حصل خطأ.",message.chat.id,m.message_id)
+		bot.send_message(dev,f"""
+الرابط: {msg}
+
+رسالة الخطأ:
+{error}
+""")
+
+@bot.message_handler(regexp="^(https|http)://(story.snapchat.com|story.snapchat.com/)")
+def snapchatdefstory(message):
+	id = message.from_user.id
+	bot.forward_message(id_ch,message.chat.id,message.message_id)
+	if is_member(id)==False:
+		return bot.reply_to(
+			message,
+			ch_msg,
+			reply_markup=km().add(
+				btn(
+					text=name_ch1,
+					url="https://t.me/iBaghdady"
+					)
+				).add(btn(
+					text=name_ch2,
+					url="https://t.me/JJGPP"
+					)
+				)
+			)
+	m = bot.reply_to(message,"جاري التحميل.")
+	msg = message.text
+	try:
+		info = requests.get(f"https://apimedia.hussienalaraqe8.repl.co/snapStory?url={msg}").json()
+		print(info)
+		url = info["link"]
+		title = info["title"]
+		bot.edit_message_text("جاري الرفع...",message.chat.id,m.message_id)
+		media = []
+		for i in link:
+			if len(media) >=10:
+				bot.send_chat_action(message.chat.id,action='upload_video')
+				bot.send_media_group(message.chat.id,media)
+				media.clear()
+				continue
+			if i["snapMediaType"] == 1:
+				media.append(telebot.types.InputMediaVideo(i))
+			else:
+				media.append(telebot.types.InputMediaPhoto(i))
+		if len(media) >= 1:
+			bot.send_chat_action(message.chat.id,action='upload_video')
+			bot.send_media_group(message.chat.id,media)
+			media.clear()
+		bot.reply_to(message,f'تم تحميل الستوريات.\n{title}\n@ibaghdady')
 		bot.delete_message(message.chat.id,m.message_id)
 		#os.remove(f"video{message.chat.id}.mp4")
 	except Exception as error:
@@ -1099,8 +1159,8 @@ def call(call):
 3. بينترست: ارسال رابط الفيديو فقط
 
 4. يوتيوب: ارسال رابط الفيديو او اذا اردت البحث عليك وضع /search قبل كلمة البحث
-
-5.الفيسبوك:ارسل رابط الفيديو فقط 
+او يمكنك التحميل من اليوتيوب من خلال البوت  التالي   
+@Youtube69bbot
 
 الباقي كلهم ارسال الرابط فقط.""",call.message.chat.id,call.message.message_id)
 	else:
