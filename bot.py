@@ -256,7 +256,7 @@ def instadown(message):
 				else:
 					video = video["image_versions2"]["candidates"][0]["url"]
 					media.append(telebot.types.InputMediaPhoto(video,caption=f"{username}"))
-			if len(media) > 1:
+			if len(media) >=1:
 				bot.send_media_group(message.chat.id,media,reply_to_message_id=message.message_id)
 				#bot.delete_message(message.chat.id,m.message_id)
 				media.clear()
