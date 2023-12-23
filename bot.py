@@ -249,7 +249,7 @@ def instadown(message):
 				if len(media) >= 10:
 					bot.send_media_group(message.chat.id,media,reply_to_message_id=message.message_id)
 					media.clear()
-					continue
+					#continue
 				if "video_versions" in video.keys():
 					video = video["video_versions"][0]["url"]
 					media.append(telebot.types.InputMediaVideo(video,caption=f"{username}"))
@@ -858,7 +858,7 @@ def from_user(message):
 			if len(media) >= 10:
 				bot.send_media_group(message.chat.id,media,reply_to_message_id=message.message_id)
 				media.clear()
-				continue
+				#continue
 			if "video_versions" in video.keys():
 				video = video["video_versions"][0]["url"]
 				media.append(telebot.types.InputMediaVideo(video,caption=f"{username}"))
